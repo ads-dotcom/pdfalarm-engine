@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Documentation · PDFAlarm Engine</title>
+    <meta
+      name="description"
+      content="Install PDFAlarm Engine, create JSON PDF templates, embed fonts and deploy in your own workflow."
+    />
+    <link
+      rel="canonical"
+      href="https://pdfalarm-engine.hakan-olcer.workers.dev/docs.html"
+    />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="/icon.svg" />
+  </head>
+  <body>
+    <header class="header">
+      <a class="brand" href="/"
+        ><img src="/icon.svg" width="30" height="30" alt="" /><span
+          >PDFAlarm <strong>Engine</strong></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="/#playground">Playground</a
+        ><a href="https://github.com/ads-dotcom/pdfalarm-engine">GitHub ↗</a>
+      </nav>
+    </header>
+    <main class="doc-main">
+      <p class="eyebrow">DOCUMENTATION · V0.1.0</p>
+      <h1>A PDF in a few lines.</h1>
+      <p>
+        A typed JSON template, your data and optional font bytes. The engine
+        returns real PDF bytes you can save, download or return from your own
+        service.
+      </p>
+      <nav class="doc-nav" aria-label="Documentation contents">
+        <a href="#quickstart">Quickstart</a><a href="#templates">Templates</a
+        ><a href="#fonts">Fonts</a><a href="#tables">Tables</a
+        ><a href="#overlay">Overlays</a><a href="#errors">Errors</a>
+      </nav>
+      <h2 id="quickstart">Install and generate</h2>
+      <p>
+        Use Node.js 22 or newer. The first release is an installable GitHub
+        tarball; npm registry publishing is not configured.
+      </p>
+      <pre
+        tabindex="0"
+      ><code>npm install https://github.com/ads-dotcom/pdfalarm-engine/releases/download/v0.1.0/pdfalarm-engine-0.1.0.tgz</code></pre>
+      <p>
+        Save this as <code>example.mjs</code> next to your package.json, then
+        run <code>node example.mjs</code>:
+      </p>
+      <pre
+        tabindex="0"
+      ><code>import { readFile, writeFile } from 'node:fs/promises';
+import { renderPdf } from 'pdfalarm-engine';
+
+const fontBytes = new Uint8Array(await readFile(new URL(
+  './node_modules/pdfalarm-engine/assets/fonts/NotoSans-Regular.ttf',
+  import.meta.url
+)));
+
+const { bytes } = await renderPdf({
+  template: {
+    version: 1,
+    pages: [{
+      width: 595.28, height: 841.89,
+      elements: [{
+        type: 'TEXT', x: 40, y: 60,
+        width: 515, height: 70,
+        font: 'NotoSans', fontSize: 24,
+        text: 'Hello, {{person.name}}'
+      }]
+    }]
+  },
+  data: { person: { name: 'İpek Yılmaz' } },
+  fonts: { NotoSans: fontBytes }
+});
+await writeFile('hello.pdf', bytes);</code></pre>
+      <h2 id="templates">Template basics</h2>
+      <p>
+        Templates use <code>version: 1</code> and a <code>pages</code> array.
+        Each page has width, height and elements. Dimensions are PDF points (72
+        points per inch), measured from the top left. Unknown fields and
+        out-of-page boxes are rejected.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Element</th>
+            <th>Main fields</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>TEXT</td>
+            <td>
+              text or dataField, font, fontSize, align, lineHeight, formatter
+            </td>
+          </tr>
+          <tr>
+            <td>RECTANGLE / LINE</td>
+            <td>fill/stroke or color, strokeWidth</td>
+          </tr>
+          <tr>
+            <td>QR_CODE</td>
+            <td>text or dataField, errorCorrection, quietZone (minimum 4)</td>
+          </tr>
+          <tr>
+            <td>BARCODE</td>
+            <td>text or dataField, barcodeType: code128/ean13, showText</td>
+          </tr>
+          <tr>
+            <td>IMAGE</td>
+            <td>asset key, aspect-preserving contain fitting</td>
+          </tr>
+          <tr>
+            <td>TABLE</td>
+            <td>dataPath, columns, font, padding, topMargin, bottomMargin</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        Each element includes x, y, width and height. Bindings accept
+        <code>{person.name}</code> or <code>{{person.name}}</code>. A
+        <code>dataField</code> binds an entire value. Conditions use strict
+        comparisons; formatted number, currency and date fields accept explicit
+        locales.
+      </p>
+      <p>
+        Browse working templates:
+        <a href="/examples/invoice.template.json">invoice</a>,
+        <a href="/examples/label.template.json">label</a>,
+        <a href="/examples/certificate.template.json">certificate</a>. The exact
+        runtime schema and TypeScript types are
+        <a
+          href="https://github.com/ads-dotcom/pdfalarm-engine/blob/main/src/schema.ts"
+          >in the source</a
+        >.
+      </p>
+      <h2 id="fonts">Fonts and language support</h2>
+      <p>
+        Pass a map of names to font bytes and use the same name in an element’s
+        <code>font</code>. Noto Sans regular and bold are included in the
+        package and distributed under the SIL Open Font License. The examples
+        verify Turkish, Latin, Greek and Cyrillic text.
+      </p>
+      <p>
+        Helvetica, Courier and other standard PDF fonts work without extra font
+        bytes, but do not cover every language. Missing glyphs produce an error.
+        RTL, Arabic shaping, CJK and emoji are outside the first release’s
+        verified scope.
+      </p>
+      <h2 id="tables">Tables that continue</h2>
+      <p>
+        A TABLE must be the final element on its template page. Column widths
+        must sum to its width. The table’s height defines its available
+        first-page region. Additional rows continue on new pages with repeated
+        headers and top/bottom margins. Text wraps inside cells; rows too tall
+        for a page fail explicitly.
+      </p>
+      <p>
+        Use <code>continuationElements</code> on the template page for
+        continuation headers and footers, positioned outside the table region.
+      </p>
+      <pre tabindex="0"><code>{
+  "type": "TABLE",
+  "x": 40, "y": 100, "width": 515, "height": 660,
+  "font": "NotoSans", "dataPath": "items",
+  "columns": [
+    { "header": "Description", "path": "name", "width": 365 },
+    { "header": "Quantity", "path": "qty", "width": 150 }
+  ]
+}</code></pre>
+      <h2 id="overlay">Assets and existing PDFs</h2>
+      <p>
+        Pass PNG/JPEG bytes through <code>assets</code>. The engine does not
+        fetch arbitrary image URLs. Optional
+        <code>resolveAsset(key, signal)</code> callbacks have a deadline; your
+        application must bound reads and control sources.
+      </p>
+      <p>
+        Pass trusted PDF bytes as <code>basePdf</code>. Template dimensions must
+        match the original pages. Rotated and encrypted input pages are
+        unsupported. Overlaying is not PDF sanitization or signing.
+      </p>
+      <pre tabindex="0"><code>await renderPdf({
+  template, data, fonts,
+  basePdf: existingPdfBytes,
+  assets: { logo: { bytes: pngBytes, format: 'png' } }
+});</code></pre>
+      <p>
+        <a href="/samples/overlay.pdf">See the generated overlay</a> ·
+        <a href="/samples/base.pdf">See the original sample form</a>
+      </p>
+      <h2 id="errors">Explicit errors and sensible limits</h2>
+      <p>
+        Catch <code>PdfAlarmError</code> and inspect its code: INVALID_TEMPLATE,
+        INVALID_DATA, LIMIT_EXCEEDED, FONT_NOT_FOUND, UNSUPPORTED_GLYPH,
+        TEXT_OVERFLOW, ASSET_ERROR, INVALID_PDF or INVALID_BARCODE.
+      </p>
+      <p>
+        Defaults: 50 pages, 2,000 rows, 1 MB each for template/data, 5 MB per
+        asset, 20 MB output, 200,000 text characters and a five-second resolver
+        deadline. Configure limits for your workload. Public rendering services
+        need their own authentication, request limits and isolation.
+      </p>
+      <h2>Your own deployment</h2>
+      <p>
+        Clone the public repository, run <code>npm ci</code> and
+        <code>npm run check</code>. <code>npm run dev</code> starts the website
+        locally. Deploy it to your own Cloudflare account with
+        <code>npm run deploy</code> after configuring credentials and choosing a
+        Worker name. The browser demo needs no database or bucket.
+      </p>
+      <p>
+        For Node.js, browser and self-hosted Worker integration, read the
+        <a
+          href="https://github.com/ads-dotcom/pdfalarm-engine/blob/main/docs/API.md"
+          >API guide</a
+        >. See
+        <a
+          href="https://github.com/ads-dotcom/pdfalarm-engine/blob/main/SECURITY.md"
+          >security notes</a
+        >,
+        <a
+          href="https://github.com/ads-dotcom/pdfalarm-engine/blob/main/CONTRIBUTING.md"
+          >contributing</a
+        >
+        and <a href="/licenses.html">third-party licenses</a>.
+      </p>
+      <a class="button primary" href="/#playground">Back to the playground</a>
+    </main>
+  </body>
+</html>

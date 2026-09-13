@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "title": "PDF overlay example",
+  "pages": [
+    {
+      "width": 595.28,
+      "height": 841.89,
+      "elements": [
+        {
+          "type": "TEXT",
+          "x": 40,
+          "y": 120,
+          "width": 515,
+          "height": 55,
+          "font": "NotoSans",
+          "fontSize": 22,
+          "text": "Prepared for {{name}}"
+        }
+      ]
+    }
+  ]
+}

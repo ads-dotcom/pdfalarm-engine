@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "pdfalarm-engine",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "assets": {
+    "directory": "./site-dist",
+    "binding": "ASSETS",
+    "run_worker_first": ["/health"],
+  },
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
+}

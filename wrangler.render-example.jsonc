@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "pdfalarm-engine-render-example",
+  "main": "worker/render-example.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "rules": [{ "type": "Data", "globs": ["**/*.ttf"], "fallthrough": true }],
+}

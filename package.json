@@ -1,0 +1,77 @@
+{
+  "name": "pdfalarm-engine",
+  "version": "0.1.0",
+  "description": "Typed JSON-to-PDF templates for browsers, Node.js and Cloudflare Workers.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./fonts/*": "./assets/fonts/*"
+  },
+  "files": [
+    "dist",
+    "assets/fonts",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ads-dotcom/pdfalarm-engine.git"
+  },
+  "homepage": "https://pdfalarm-engine.hakan-olcer.workers.dev",
+  "bugs": {
+    "url": "https://github.com/ads-dotcom/pdfalarm-engine/issues"
+  },
+  "keywords": [
+    "pdf",
+    "templates",
+    "cloudflare",
+    "workers",
+    "invoice",
+    "barcode"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.worker.json --noEmit && tsc -p tsconfig.site.json --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "examples": "npm run build && node scripts/examples.mjs",
+    "check": "npm run typecheck && npm test && npm run examples && npm run audit:secrets && npm run test:worker",
+    "audit:secrets": "node scripts/audit-secrets.mjs",
+    "dev": "wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "prepack": "npm run build",
+    "test:browser": "playwright test",
+    "test:worker": "node scripts/test-worker.mjs"
+  },
+  "dependencies": {
+    "@pdf-lib/fontkit": "1.1.1",
+    "bwip-js": "4.8.0",
+    "pdf-lib": "1.17.1",
+    "qrcode": "1.5.4",
+    "zod": "4.6.4"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@cloudflare/workers-types": "5.20260911.1",
+    "@napi-rs/canvas": "^1.0.9",
+    "@playwright/test": "^1.63.0",
+    "@types/node": "22.19.0",
+    "@types/qrcode": "1.5.6",
+    "@zxing/library": "^0.21.3",
+    "esbuild": "0.25.12",
+    "jsqr": "^1.4.0",
+    "pdfjs-dist": "6.3.289",
+    "prettier": "^3.9.6",
+    "typescript": "5.9.3",
+    "wrangler": "4.131.1"
+  }
+}

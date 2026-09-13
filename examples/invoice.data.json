@@ -1,0 +1,28 @@
+{
+  "invoice": {
+    "number": "INV-2026-041",
+    "date": "2026-09-13",
+    "total": "€1,480.00"
+  },
+  "customer": {
+    "name": "İpek Yılmaz",
+    "address": "Şişli, İstanbul · Türkiye"
+  },
+  "items": [
+    {
+      "description": "Brand identity and visual direction",
+      "quantity": 1,
+      "amount": 780
+    },
+    {
+      "description": "Product photography · sample service",
+      "quantity": 2,
+      "amount": 500
+    },
+    {
+      "description": "Print preparation and delivery",
+      "quantity": 1,
+      "amount": 200
+    }
+  ]
+}

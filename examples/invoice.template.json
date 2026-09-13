@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "title": "Invoice draft · PDFAlarm Engine",
+  "pages": [
+    {
+      "width": 595.28,
+      "height": 841.89,
+      "elements": [
+        {
+          "type": "RECTANGLE",
+          "x": 0,
+          "y": 0,
+          "width": 595.28,
+          "height": 12,
+          "fill": "#237B65"
+        },
+        {
+          "type": "TEXT",
+          "text": "INVOICE DRAFT",
+          "x": 40,
+          "y": 40,
+          "width": 390,
+          "height": 44,
+          "font": "NotoSans-Bold",
+          "fontSize": 28
+        },
+        {
+          "type": "TEXT",
+          "text": "{{invoice.number}}",
+          "x": 420,
+          "y": 48,
+          "width": 130,
+          "height": 26,
+          "font": "NotoSans",
+          "fontSize": 12,
+          "align": "right"
+        },
+        {
+          "type": "TEXT",
+          "text": "North Studio · Sample document",
+          "x": 40,
+          "y": 91,
+          "width": 450,
+          "height": 24,
+          "font": "NotoSans",
+          "fontSize": 11,
+          "color": "#60716C"
+        },
+        {
+          "type": "TEXT",
+          "text": "BILL TO",
+          "x": 40,
+          "y": 148,
+          "width": 250,
+          "height": 24,
+          "font": "NotoSans-Bold",
+          "fontSize": 10,
+          "color": "#237B65"
+        },
+        {
+          "type": "TEXT",
+          "text": "{{customer.name}}",
+          "x": 40,
+          "y": 175,
+          "width": 370,
+          "height": 32,
+          "font": "NotoSans-Bold",
+          "fontSize": 18
+        },
+        {
+          "type": "TEXT",
+          "text": "{{customer.address}}",
+          "x": 40,
+          "y": 212,
+          "width": 420,
+          "height": 52,
+          "font": "NotoSans",
+          "fontSize": 11
+        },
+        {
+          "type": "TEXT",
+          "dataField": "invoice.date",
+          "formatter": {
+            "type": "date",
+            "locale": "en-GB"
+          },
+          "x": 400,
+          "y": 151,
+          "width": 155,
+          "height": 30,
+          "font": "NotoSans",
+          "fontSize": 11,
+          "align": "right"
+        },
+        {
+          "type": "TEXT",
+          "text": "Total: {{invoice.total}}",
+          "x": 40,
+          "y": 273,
+          "width": 430,
+          "height": 38,
+          "font": "NotoSans-Bold",
+          "fontSize": 20
+        },
+        {
+          "type": "TEXT",
+          "text": "Illustrative draft. Not a tax-compliant invoice.",
+          "x": 40,
+          "y": 316,
+          "width": 480,
+          "height": 30,
+          "font": "NotoSans",
+          "fontSize": 10,
+          "color": "#60716C"
+        },
+        {
+          "type": "TABLE",
+          "x": 40,
+          "y": 378,
+          "width": 515.28,
+          "height": 385,
+          "font": "NotoSans",
+          "fontSize": 10,
+          "headerFont": "NotoSans-Bold",
+          "dataPath": "items",
+          "topMargin": 70,
+          "bottomMargin": 55,
+          "columns": [
+            {
+              "header": "Description",
+              "path": "description",
+              "width": 295.28
+            },
+            {
+              "header": "Qty",
+              "path": "quantity",
+              "width": 70,
+              "align": "right",
+              "formatter": {
+                "type": "number",
+                "decimals": 0
+              }
+            },
+            {
+              "header": "Amount",
+              "path": "amount",
+              "width": 150,
+              "align": "right",
+              "formatter": {
+                "type": "currency",
+                "locale": "en-GB",
+                "currency": "EUR"
+              }
+            }
+          ]
+        }
+      ],
+      "continuationElements": [
+        {
+          "type": "TEXT",
+          "text": "North Studio · Invoice continuation",
+          "x": 40,
+          "y": 27,
+          "width": 515,
+          "height": 25,
+          "font": "NotoSans-Bold",
+          "fontSize": 11
+        },
+        {
+          "type": "TEXT",
+          "text": "Sample data · PDFAlarm Engine",
+          "x": 40,
+          "y": 803,
+          "width": 515,
+          "height": 20,
+          "font": "NotoSans",
+          "fontSize": 9,
+          "color": "#60716C"
+        }
+      ]
+    }
+  ]
+}

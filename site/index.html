@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PDFAlarm Engine — Beautiful PDFs from your data</title>
+    <meta
+      name="description"
+      content="An open-source JSON-to-PDF engine for browsers, Node.js and Cloudflare Workers. Try Turkish text, flowing tables, QR codes and PDF overlays in a local browser playground."
+    />
+    <link
+      rel="canonical"
+      href="https://pdfalarm-engine.hakan-olcer.workers.dev/"
+    />
+    <meta
+      property="og:title"
+      content="PDFAlarm Engine — Your data. A better document."
+    />
+    <meta
+      property="og:description"
+      content="Open-source PDF templates. A live playground. No account required."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://pdfalarm-engine.hakan-olcer.workers.dev/"
+    />
+    <meta name="theme-color" content="#237B65" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/playground.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="header">
+      <a class="brand" href="/" aria-label="PDFAlarm Engine home"
+        ><img src="/icon.svg" width="30" height="30" alt="" /><span
+          >PDFAlarm <strong>Engine</strong></span
+        ></a
+      >
+      <nav aria-label="Main navigation">
+        <a href="/docs.html">Documentation</a
+        ><a href="https://github.com/ads-dotcom/pdfalarm-engine"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+    </header>
+    <main id="main">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="dot"></span> OPEN SOURCE · MIT LICENSE
+          </p>
+          <h1>Your data.<br />A better <em>document.</em></h1>
+          <p class="lead">
+            Turn JSON into invoices, labels and certificates. One small template
+            engine for your browser, server or Cloudflare Worker.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#playground"
+              >Try the playground <span aria-hidden="true">↓</span></a
+            ><a class="button secondary" href="/docs.html">Start building</a>
+          </div>
+          <p class="quiet">
+            No account. No API key. Your demo data stays in this browser.
+          </p>
+          <div class="hero-details">
+            <span>Unicode fonts</span><span>Flowing tables</span
+            ><span>QR & barcodes</span>
+          </div>
+        </div>
+        <div
+          class="hero-art"
+          role="img"
+          aria-label="Illustration of a template becoming a document"
+        >
+          <div class="code-note">
+            <span class="mini-dot"></span> input.json
+            <pre tabindex="0">
+{
+  "name": "İpek Yılmaz",
+  "document": "something great"
+}</pre>
+          </div>
+          <div class="paper">
+            <div class="paper-mark"></div>
+            <small>NORTH STUDIO</small>
+            <div class="paper-title">Made for<br />İpek Yılmaz.</div>
+            <p>Thoughtful templates.<br />Real, readable documents.</p>
+            <div class="paper-line"></div>
+            <div class="paper-line short"></div>
+            <div class="paper-footer">
+              <span>PDFALARM ENGINE</span><span>01</span>
+            </div>
+          </div>
+          <span class="art-badge">JSON → PDF</span>
+        </div>
+      </section>
+      <section class="benefits" aria-label="Engine features">
+        <article>
+          <span class="feature-number">01 /</span>
+          <h2>A template you own</h2>
+          <p>
+            Typed JSON, data bindings and conditional content. Keep your
+            document logic in your own repository.
+          </p>
+        </article>
+        <article>
+          <span class="feature-number">02 /</span>
+          <h2>Room for every row</h2>
+          <p>
+            Text wraps. Tables continue across pages. Headers repeat. Errors
+            surface instead of hiding missing content.
+          </p>
+        </article>
+        <article>
+          <span class="feature-number">03 /</span>
+          <h2>Works where you do</h2>
+          <p>
+            The same engine runs in the browser, Node.js and Workers. Storage
+            and fonts are explicit inputs.
+          </p>
+        </article>
+      </section>
+      <section class="playground-section" id="playground">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">THE LIVE PLAYGROUND</p>
+            <h2>Make it yours.</h2>
+          </div>
+          <p>
+            Edit the sample data. Generate a real PDF.<br />Everything happens
+            locally in your browser.
+          </p>
+        </div>
+        <div class="playground">
+          <div class="editor-panel">
+            <div
+              class="template-tabs"
+              role="group"
+              aria-label="Choose a document example"
+            >
+              <button data-example="invoice" aria-pressed="true">Invoice</button
+              ><button data-example="label" aria-pressed="false">Label</button
+              ><button data-example="certificate" aria-pressed="false">
+                Certificate
+              </button>
+            </div>
+            <label class="editor-label" for="data-input"
+              >DOCUMENT DATA <span>JSON</span></label
+            ><textarea
+              id="data-input"
+              spellcheck="false"
+              aria-describedby="data-help"
+              rows="15"
+            ></textarea>
+            <p id="data-help" class="editor-help">
+              All examples use fictional data. Turkish characters are included.
+            </p>
+            <details class="advanced">
+              <summary>Edit the template</summary>
+              <label class="sr-only" for="template-input"
+                >Document template JSON</label
+              ><textarea
+                id="template-input"
+                spellcheck="false"
+                rows="14"
+              ></textarea>
+              <p>
+                Coordinates are PDF points measured from the top left. See the
+                <a href="/docs.html#templates">template guide</a>.
+              </p>
+            </details>
+            <div class="editor-actions">
+              <button id="generate" class="button primary" disabled>
+                Loading engine…</button
+              ><button id="reset" class="reset">Reset example</button>
+            </div>
+            <p id="status" class="status" role="status" aria-live="polite">
+              Preparing your first document…
+            </p>
+            <p id="error" class="error" role="alert" hidden></p>
+          </div>
+          <div class="preview-panel">
+            <div class="preview-toolbar">
+              <span><span class="dot"></span> PDF PREVIEW</span
+              ><a id="download" class="download" aria-disabled="true"
+                >Download PDF <span aria-hidden="true">↓</span></a
+              >
+            </div>
+            <div class="canvas-wrap" id="canvas-wrap">
+              <div id="preview-placeholder">
+                Your document will appear here.
+              </div>
+              <canvas
+                id="pdf-canvas"
+                role="img"
+                aria-label="Generated PDF preview"
+                hidden
+              ></canvas>
+            </div>
+            <div class="preview-footer">
+              <span id="pdf-metrics">Ready when you are</span>
+              <div class="page-controls">
+                <button id="prev-page" aria-label="Previous page" disabled>
+                  ←</button
+                ><span id="page-number">—</span
+                ><button id="next-page" aria-label="Next page" disabled>
+                  →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="privacy-note">
+          <span aria-hidden="true">◇</span>
+          <p>
+            The demo generates and previews documents locally. We do not receive
+            your template or document data. The hosting provider handles
+            standard website requests.
+          </p>
+        </div>
+      </section>
+      <section class="examples-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">A GOOD PLACE TO START</p>
+            <h2>Small templates. Real possibilities.</h2>
+          </div>
+          <a
+            class="text-link"
+            href="https://github.com/ads-dotcom/pdfalarm-engine/tree/main/examples"
+            >Explore the source ↗</a
+          >
+        </div>
+        <div class="example-grid">
+          <article>
+            <span class="example-symbol">Aa</span>
+            <h3>Invoice drafts</h3>
+            <p>
+              Data bindings, locale-aware currency and a table that grows with
+              your line items.
+            </p>
+            <a href="/samples/invoice.pdf">Download example PDF ↓</a>
+          </article>
+          <article>
+            <span class="example-symbol bars" aria-hidden="true">▌▏▎▌▏</span>
+            <h3>Shipping labels</h3>
+            <p>
+              Printable addresses, Code 128 barcodes and QR codes with a proper
+              quiet zone.
+            </p>
+            <a href="/samples/label.pdf">Download example PDF ↓</a>
+          </article>
+          <article>
+            <span class="example-symbol">✳</span>
+            <h3>Certificates</h3>
+            <p>
+              Embedded fonts, landscape layouts and a personal touch from your
+              own data.
+            </p>
+            <a href="/samples/certificate.pdf">Download example PDF ↓</a>
+          </article>
+        </div>
+      </section>
+      <section class="developer-section">
+        <div>
+          <p class="eyebrow">FROM PLAYGROUND TO PRODUCT</p>
+          <h2>Bring your own workflow.</h2>
+          <p>
+            Generate a PDF in Node.js, add the engine to your web app, or deploy
+            your own Worker. No hosted rendering subscription is required.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="/docs.html#quickstart"
+              >Read the quickstart</a
+            ><a
+              class="button secondary"
+              href="https://github.com/ads-dotcom/pdfalarm-engine/releases/tag/v0.1.0"
+              >Get v0.1.0 ↗</a
+            >
+          </div>
+        </div>
+        <div class="code-block">
+          <div>JavaScript <span>Node.js / Browser / Worker</span></div>
+          <pre tabindex="0"><code>import { renderPdf } from 'pdfalarm-engine';
+
+const { bytes, metrics } = await renderPdf({
+  template,
+  data: { name: 'İpek Yılmaz' },
+  fonts: { NotoSans: fontBytes }
+});
+
+// Save, download or return the PDF bytes.</code></pre>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">A FEW DETAILS</p>
+        <h2>Know what you’re building with.</h2>
+        <details>
+          <summary>Is PDFAlarm Engine free to use?</summary>
+          <p>
+            Yes. The engine is MIT licensed. The bundled Noto fonts have their
+            own SIL Open Font License. Your hosting or infrastructure provider
+            may charge for your own deployment.
+          </p>
+        </details>
+        <details>
+          <summary>Does it support every language?</summary>
+          <p>
+            Font support depends on the font bytes you provide. The examples
+            include Noto Sans and test Turkish, Latin, Greek and Cyrillic text.
+            Arabic shaping, CJK fonts, emoji and right-to-left layout are
+            outside the initial release’s verified scope. Missing glyphs produce
+            an explicit error.
+          </p>
+        </details>
+        <details>
+          <summary>Can I overlay an existing PDF?</summary>
+          <p>
+            Yes. Pass its bytes as <code>basePdf</code> and use matching
+            template page dimensions. See the
+            <a href="/samples/overlay.pdf">overlay example</a> and
+            <a href="/docs.html#overlay">guide</a>. Rotated and encrypted input
+            PDFs are not supported in v0.1.
+          </p>
+        </details>
+        <details>
+          <summary>Is this an HTML-to-PDF service?</summary>
+          <p>
+            The initial engine uses JSON drawing templates. It does not render
+            HTML/CSS or include a billing or customer management system.
+          </p>
+        </details>
+        <details>
+          <summary>How can I contribute?</summary>
+          <p>
+            Try the examples, report reproducible problems and propose
+            improvements through
+            <a href="https://github.com/ads-dotcom/pdfalarm-engine/issues"
+              >GitHub issues</a
+            >. Read the contribution guide before opening a pull request.
+          </p>
+        </details>
+      </section>
+      <section class="closing">
+        <p class="eyebrow">YOUR NEXT DOCUMENT STARTS HERE</p>
+        <h2>Give your data a little form.</h2>
+        <a class="button primary" href="#playground"
+          >Make a PDF <span aria-hidden="true">↑</span></a
+        >
+      </section>
+    </main>
+    <footer>
+      <a class="brand" href="/"
+        ><img src="/icon.svg" width="25" height="25" alt="" /><span
+          >PDFAlarm <strong>Engine</strong></span
+        ></a
+      >
+      <p>Open source. Built to be useful.</p>
+      <div>
+        <a href="/docs.html">Docs</a><a href="/privacy.html">Privacy</a
+        ><a href="https://github.com/ads-dotcom/pdfalarm-engine">GitHub</a>
+      </div>
+    </footer>
+  </body>
+</html>

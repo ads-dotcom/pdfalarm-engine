@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "title": "Shipping label · PDFAlarm Engine",
+  "pages": [
+    {
+      "width": 420,
+      "height": 595,
+      "elements": [
+        {
+          "type": "RECTANGLE",
+          "x": 20,
+          "y": 20,
+          "width": 380,
+          "height": 555,
+          "stroke": "#DCE4E2"
+        },
+        {
+          "type": "TEXT",
+          "text": "PARCEL / 01",
+          "x": 40,
+          "y": 40,
+          "width": 340,
+          "height": 40,
+          "font": "NotoSans-Bold",
+          "fontSize": 25
+        },
+        {
+          "type": "TEXT",
+          "text": "DEMO SHIPPING LABEL",
+          "x": 40,
+          "y": 92,
+          "width": 340,
+          "height": 22,
+          "font": "NotoSans",
+          "fontSize": 10,
+          "color": "#60716C"
+        },
+        {
+          "type": "TEXT",
+          "text": "{{recipient.name}}",
+          "x": 40,
+          "y": 146,
+          "width": 340,
+          "height": 32,
+          "font": "NotoSans-Bold",
+          "fontSize": 19
+        },
+        {
+          "type": "TEXT",
+          "text": "{{recipient.address}}",
+          "x": 40,
+          "y": 189,
+          "width": 340,
+          "height": 66,
+          "font": "NotoSans",
+          "fontSize": 13
+        },
+        {
+          "type": "BARCODE",
+          "x": 40,
+          "y": 291,
+          "width": 340,
+          "height": 74,
+          "dataField": "tracking",
+          "font": "NotoSans"
+        },
+        {
+          "type": "QR_CODE",
+          "x": 40,
+          "y": 406,
+          "width": 104,
+          "height": 104,
+          "dataField": "url"
+        },
+        {
+          "type": "TEXT",
+          "text": "Scan for the sample project.\nNo shipment has been created.",
+          "x": 167,
+          "y": 426,
+          "width": 200,
+          "height": 63,
+          "font": "NotoSans",
+          "fontSize": 11
+        },
+        {
+          "type": "TEXT",
+          "text": "Generated with PDFAlarm Engine",
+          "x": 40,
+          "y": 537,
+          "width": 340,
+          "height": 22,
+          "font": "NotoSans",
+          "fontSize": 9,
+          "color": "#60716C"
+        }
+      ]
+    }
+  ]
+}

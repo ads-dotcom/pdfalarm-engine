@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "title": "Certificate · PDFAlarm Engine",
+  "pages": [
+    {
+      "width": 841.89,
+      "height": 595.28,
+      "elements": [
+        {
+          "type": "RECTANGLE",
+          "x": 26,
+          "y": 26,
+          "width": 789.89,
+          "height": 543.28,
+          "stroke": "#237B65",
+          "strokeWidth": 2
+        },
+        {
+          "type": "TEXT",
+          "text": "NORTH STUDIO",
+          "x": 70,
+          "y": 73,
+          "width": 701,
+          "height": 25,
+          "font": "NotoSans-Bold",
+          "fontSize": 11,
+          "align": "center",
+          "color": "#237B65"
+        },
+        {
+          "type": "TEXT",
+          "text": "Certificate of completion",
+          "x": 70,
+          "y": 137,
+          "width": 701,
+          "height": 60,
+          "font": "NotoSans-Bold",
+          "fontSize": 34,
+          "align": "center"
+        },
+        {
+          "type": "TEXT",
+          "text": "This sample certificate is presented to",
+          "x": 70,
+          "y": 224,
+          "width": 701,
+          "height": 30,
+          "font": "NotoSans",
+          "fontSize": 13,
+          "align": "center",
+          "color": "#60716C"
+        },
+        {
+          "type": "TEXT",
+          "text": "{{name}}",
+          "x": 70,
+          "y": 273,
+          "width": 701,
+          "height": 60,
+          "font": "NotoSans-Bold",
+          "fontSize": 36,
+          "align": "center"
+        },
+        {
+          "type": "TEXT",
+          "text": "for completing {{course}}.",
+          "x": 90,
+          "y": 357,
+          "width": 660,
+          "height": 55,
+          "font": "NotoSans",
+          "fontSize": 14,
+          "align": "center"
+        },
+        {
+          "type": "TEXT",
+          "text": "A demonstration document using fictional data.",
+          "x": 70,
+          "y": 441,
+          "width": 701,
+          "height": 27,
+          "font": "NotoSans",
+          "fontSize": 10,
+          "align": "center",
+          "color": "#60716C"
+        },
+        {
+          "type": "TEXT",
+          "text": "PDFAlarm Engine · Open source",
+          "x": 70,
+          "y": 505,
+          "width": 701,
+          "height": 22,
+          "font": "NotoSans",
+          "fontSize": 10,
+          "align": "center",
+          "color": "#237B65"
+        }
+      ]
+    }
+  ]
+}

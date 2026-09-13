@@ -1,0 +1,9 @@
+node_modules/
+dist/
+site-dist/
+.wrangler/
+.dev.vars*
+.env*
+*.tgz
+output/
+.DS_Store

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://pdfalarm-engine.hakan-olcer.workers.dev/sitemap.xml
