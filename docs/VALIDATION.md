@@ -24,8 +24,8 @@ it does not certify every printer, scanner or barcode size a user may choose.
 
 ## Website and examples
 
-Ten browser checks cover actual previews/downloads, invalid inputs, table page
-navigation, docs/assets/health/404 responses and automated WCAG checks on home,
+Twelve browser checks cover actual previews/downloads, invalid inputs, table page
+navigation, stale-download prevention during example switches, docs/assets/health/404 responses and automated WCAG checks on home,
 docs and privacy pages. Browser requests are checked for unexpected POST uploads
 and application cookies. Screenshots and four example PDFs were visually inspected.
 

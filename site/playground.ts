@@ -157,6 +157,8 @@ async function makePdf(): Promise<void> {
 async function choose(name: string): Promise<void> {
   if (busy) return;
   setBusy(true);
+  clearDownload();
+  status.textContent = "Loading the example…";
   error.hidden = true;
   try {
     const responses = await Promise.all([

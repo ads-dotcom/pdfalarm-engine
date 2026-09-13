@@ -46,6 +46,33 @@ test("examples preview and download real PDFs without sending document data", as
     fullPage: true,
   });
 });
+test("switching examples disables the previous download while loading", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await ready(page);
+  let release;
+  const gate = new Promise((resolve) => {
+    release = resolve;
+  });
+  await page.route("**/examples/label.*.json", async (route) => {
+    await gate;
+    await route.continue();
+  });
+  await page.getByRole("button", { name: "Label", exact: true }).click();
+  await expect(page.getByRole("status")).toHaveText("Loading the example…");
+  await expect(page.locator("#download")).toHaveAttribute(
+    "aria-disabled",
+    "true",
+  );
+  await expect(page.locator("#download")).not.toHaveAttribute("href");
+  release();
+  await ready(page);
+  await expect(page.locator("#download")).toHaveAttribute(
+    "download",
+    "pdfalarm-label.pdf",
+  );
+});
 test("invalid JSON and invalid templates show actionable errors", async ({
   page,
 }) => {
