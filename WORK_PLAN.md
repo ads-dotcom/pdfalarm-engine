@@ -23,10 +23,10 @@ Owner: ads-dotcom. Started: 2026-09-13. Initial public release: v0.1.0.
 - [x] Complete regression tests and output inspection.
 - [x] Build examples, docs and launch site.
 - [x] Verify fresh package installation and security/dependency checks.
-- [ ] Publish repository and first release.
-- [ ] Deploy and verify the public site and playground.
-- [ ] Enable automated checks and deployment.
-- [ ] Prepare application evidence and final handoff.
+- [x] Publish repository and first release.
+- [x] Deploy and verify the public site and playground.
+- [x] Enable automated checks and deployment.
+- [x] Prepare application evidence and final handoff.
 
 ## Scope
 
